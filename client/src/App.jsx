@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import {
   Footer,
@@ -7,11 +7,22 @@ import {
   Home,
   Navbar,
   SignIn,
+  Complete,
 } from "./components";
 import { useSelector, useDispatch } from "react-redux";
+import { signIn } from "./store/authSlice";
 
 function App() {
   const Auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
+    if (user && token) {
+      dispatch(signIn({ user, token }));
+    }
+  }, []);
 
   let route;
 
@@ -21,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreateTodoList />} />
+          <Route path="/complete" element={<Complete />} />
         </Routes>
       </>
     );

@@ -9,7 +9,7 @@ const SignIn = () => {
   return (
     <Button
       onClick={() => {
-        dispatch(signIn({ user: "sharan", token: "token", todo: ["dodo"] }));
+        dispatch(signIn({ user: "sharan", token: "token" }));
       }}
     >
       Sign in

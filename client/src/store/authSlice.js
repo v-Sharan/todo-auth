@@ -4,7 +4,6 @@ const initialState = {
   isAuthendicated: false,
   token: null,
   user: null,
-  todo: [],
 };
 
 export const authSlice = createSlice({
@@ -16,14 +15,14 @@ export const authSlice = createSlice({
       localStorage.setItem("token", action.payload.token);
       state.isAuthendicated = true;
       state.user = action.payload.user;
-      state.todo = action.payload.todo;
+      state.token = action.payload.token;
     },
     signOut: (state) => {
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       state.isAuthendicated = false;
       state.user = null;
-      state.todo = [];
+      state.token = null;
     },
   },
 });
