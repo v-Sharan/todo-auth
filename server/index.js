@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import * as dotenv from "dotenv";
 
 import { ConnectDB } from "./mongodb/connect.js";
+import { sessionToken } from "./middleware/CheckJwtToken.js";
 import UserRoutes from "./routes/user.js";
 import TodoRouters from "./routes/todo.js";
 
@@ -17,6 +18,15 @@ app.use(express.json());
 
 app.use("/api/users", UserRoutes);
 app.use("/api/todo", TodoRouters);
+app.post("/", async (req, res, next) => {
+  const { token } = req.body;
+  try {
+    sessionToken(token);
+    res.json({ login: "true" });
+  } catch (error) {
+    res.json({ login: "false", session: "session expired" });
+  }
+});
 
 const startServer = () => {
   try {
