@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   isAuthendicated: false,
-  token: null,
   user: null,
+  token: null,
 };
 
 export const authSlice = createSlice({
@@ -11,11 +12,15 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     signIn: (state, action) => {
-      localStorage.setItem("user", action.payload.user);
-      localStorage.setItem("token", action.payload.token);
-      state.isAuthendicated = true;
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+      try {
+        localStorage.setItem("user", action.payload.user);
+        localStorage.setItem("token", action.payload.token);
+        state.isAuthendicated = true;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+      } catch (error) {
+        console.log(error);
+      }
     },
     signOut: (state) => {
       localStorage.removeItem("user");

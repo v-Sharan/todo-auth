@@ -7,22 +7,32 @@ import {
   Home,
   Navbar,
   SignIn,
+  Login,
   Complete,
+  ProtectedRoute,
 } from "./components";
 import { useSelector, useDispatch } from "react-redux";
 import { signIn } from "./store/authSlice";
+import axios from "axios";
 
 function App() {
   const Auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const user = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
-    if (user && token) {
-      dispatch(signIn({ user, token }));
+    if (token && !Auth.isAuthendicated) {
+      axios
+        .post("http://localhost:8080", { token })
+        .then((res) => {
+          if (res.data.login) {
+            dispatch(signIn({ user, token }));
+          }
+        })
+        .catch((err) => console.log(err));
     }
-  }, []);
+  }, [token, Auth.isAuthendicated]);
 
   let route;
 
@@ -40,7 +50,15 @@ function App() {
     route = (
       <>
         <Routes>
-          <Route path="/" element={<SignIn />} />
+          <Route
+            path="/"
+            element={
+              // <ProtectedRoute>
+              <SignIn />
+              // </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </>
     );

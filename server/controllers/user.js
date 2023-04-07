@@ -95,9 +95,8 @@ export const loginUser = async (req, res, next) => {
   }
 
   const comparyPassword = bcrypt.compareSync(password, existingUser.password);
-  console.log(comparyPassword);
 
-  if (!existingUser || comparyPassword) {
+  if (!existingUser || !comparyPassword) {
     return next(
       new HttpError(
         "Could not identify user, credentials seem to be wrong.",

@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthendicated } = useSelector((state) => state.auth);
 
   if (!isAuthendicated) {
-    return <Navigate to="/sign-in" />;
+    return <Navigate to="/" />;
   }
 
   return <React.Fragment>{children}</React.Fragment>;

@@ -24,7 +24,7 @@ app.post("/", async (req, res, next) => {
     sessionToken(token);
     res.json({ login: "true" });
   } catch (error) {
-    res.json({ login: "false", session: "session expired" });
+    res.status(401).json({ login: "false", session: "session expired" });
   }
 });
 
