@@ -1,20 +1,12 @@
-import { Button } from "flowbite-react";
-import React from "react";
-import { useDispatch } from "react-redux";
-import { signOut } from "../../store/authSlice";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useFetchTodo } from "../../hook/use-todo";
 
 const Home = () => {
-  const dispatch = useDispatch();
+  const id = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
 
-  return (
-    <Button
-      onClick={() => {
-        dispatch(signOut());
-      }}
-    >
-      Sign out
-    </Button>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;

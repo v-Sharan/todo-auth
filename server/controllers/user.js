@@ -107,3 +107,15 @@ export const loginUser = async (req, res, next) => {
 
   res.json({ user: existingUser, token: token });
 };
+
+export const findUser = async (req, res, next) => {
+  const { userId } = req.params;
+  let existingUser;
+  try {
+    existingUser = await User.findById(userId, "-password");
+  } catch (err) {
+    const error = new HttpError("Coudn't find user", 500);
+    return next(error);
+  }
+  res.json({ user: existingUser });
+};

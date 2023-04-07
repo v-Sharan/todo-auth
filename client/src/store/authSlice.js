@@ -25,6 +25,8 @@ export const authSlice = createSlice({
     signOut: (state) => {
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+      localStorage.removeItem("userPhoto");
+      localStorage.removeItem("id");
       state.isAuthendicated = false;
       state.user = null;
       state.token = null;

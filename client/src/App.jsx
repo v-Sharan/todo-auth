@@ -13,6 +13,7 @@ import {
 } from "./components";
 import { useSelector, useDispatch } from "react-redux";
 import { signIn } from "./store/authSlice";
+import { reStoreData } from "./store/userSclice";
 import axios from "axios";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   const dispatch = useDispatch();
   const user = localStorage.getItem("user");
   const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
     if (token && !Auth.isAuthendicated) {
@@ -32,6 +34,18 @@ function App() {
         })
         .catch((err) => console.log(err));
     }
+    if (id) {
+      axios.get(`http://localhost:8080/api/todo/${id}`).then((res) => {
+        dispatch(
+          reStoreData({
+            name: res.data.user.name,
+            email: res.data.user.email,
+            userPhoto: res.data.user.userPhoto,
+            id: res.data.user._id,
+          })
+        );
+      });
+    }
   }, [token, Auth.isAuthendicated]);
 
   let route;
@@ -39,6 +53,7 @@ function App() {
   if (Auth.isAuthendicated) {
     route = (
       <>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreateTodoList />} />
