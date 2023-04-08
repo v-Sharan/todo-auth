@@ -1,7 +1,7 @@
 import React from "react";
 
-const Card = ({ title }) => {
-  return <div>Card</div>;
+const Card = ({ todo }) => {
+  return <div>{todo.title}</div>;
 };
 
 export default Card;

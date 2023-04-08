@@ -11,8 +11,8 @@ const pages = ["completed", "profile"];
 
 const Navbar = () => {
   const id = localStorage.getItem("id");
-  const token = localStorage.getItem("token");
-  const photo = useSelector((state) => state.Todo.userPhoto);
+  const token = useSelector((state) => state.auth.token);
+  const photo = useSelector((state) => state.data.userPhoto);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +23,6 @@ const Navbar = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         dispatch(
           storeData({
             name: res.data.user.name,
@@ -32,9 +31,20 @@ const Navbar = () => {
             id: res.data.user._id,
           })
         );
-      });
+        console.log(photo);
+      })
+      .catch((error) => console.log(error));
+    axios
+      .get(`http://localhost:8080/api/todo/${id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        dispatch(Addtodo(res.data.Todos));
+      })
+      .catch((err) => console.log(err));
   }, []);
-
   return (
     <nav className="border-gray-200 bg-slate-300  dark:bg-gray-900 shadow-lg">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
