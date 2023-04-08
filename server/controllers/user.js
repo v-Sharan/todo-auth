@@ -38,13 +38,17 @@ export const createUser = async (req, res, next) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashPassword = bcrypt.hashSync(password, salt);
 
-  const createdUser = new User({
-    name,
-    email,
-    userPhoto,
-    password: hashPassword,
-    todos: [],
-  });
+  let createdUser;
+
+  setTimeout(() => {
+    createdUser = new User({
+      name,
+      email,
+      userPhoto,
+      password: hashPassword,
+      todos: [],
+    });
+  }, 1000);
 
   const token = jwt.sign(
     {

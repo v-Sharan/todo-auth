@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   todo: [],
+  isLoading: false,
 };
 
 export const TodoSlice = createSlice({
@@ -9,7 +10,8 @@ export const TodoSlice = createSlice({
   initialState,
   reducers: {
     Addtodo: (state, action) => {
-      state.todo = action.payload;
+      state.todo = action.payload.todo;
+      state.isLoading = action.payload.isLoading;
     },
   },
 });

@@ -54,11 +54,13 @@ function App() {
     route = (
       <>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<CreateTodoList />} />
-          <Route path="/complete" element={<Complete />} />
-        </Routes>
+        <div className="bg-[#d7e3fc] min-h-screen">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/create" element={<CreateTodoList />} />
+            <Route path="/complete" element={<Complete />} />
+          </Routes>
+        </div>
       </>
     );
   } else {

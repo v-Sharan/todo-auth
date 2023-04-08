@@ -31,7 +31,6 @@ const SignIn = () => {
         );
       })
       .catch((error) => console.log(error));
-    console.log(form);
   };
 
   return (
@@ -82,7 +81,7 @@ const SignIn = () => {
                   htmlFor="userPhoto"
                   className="block mb-2 text-sm text-left font-medium text-gray-900 dark:text-white"
                 >
-                  Your password
+                  Your Photo url
                 </label>
                 <input
                   type="text"
